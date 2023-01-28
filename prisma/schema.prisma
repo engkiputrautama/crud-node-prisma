@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model apotek_anugrah {
+  id_customer   Int     @id @default(autoincrement())
+  nama_pasiien  String? @db.VarChar(255)
+  nama_penyakit String? @db.VarChar(255)
+  nama_obat     String? @db.VarChar(255)
+  harga_obat    Int?
+}
+
+model gallery_phone {
+  id        Int     @id @default(autoincrement())
+  nama_hp   String? @db.VarChar(255)
+  merek_hp  String? @db.VarChar(255)
+  warna_hp  String? @db.VarChar(255)
+  RAM       Int?
+  ROM       Int?
+  processor String? @db.VarChar(255)
+  harga     Int?
+}
+
+model karyawan {
+  id_karyawan      Int    @id @default(autoincrement())
+  nama_karyawan    String @db.VarChar(255)
+  jabatan_karyawan String @db.VarChar(255)
+  gaji_karyawan    Int
+  tunjangan        Int
+  jam_kerja        Int
+  pendidikan       String @db.VarChar(255)
+  alamat           String @db.VarChar(255)
+  status           String
+}
+
+model voucher_parkir {
+  id              Int      @id @unique @default(autoincrement())
+  nama_pemilik    String?  @db.VarChar(255)
+  jenis_kendaraan String?  @db.VarChar(255)
+  merk            String?  @db.VarChar(255)
+  plat            String   @unique @db.VarChar(4)
+  paket_parkir    String?  @db.VarChar(255)
+  tanggal_masuk   DateTime @default(now()) @db.Timestamp(0)
+  tanggal_expired DateTime @default(dbgenerated("('0000-00-00 00:00:00')")) @db.Timestamp(0)
+}
